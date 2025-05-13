@@ -1,48 +1,59 @@
-<?xml version="1.0"?>
-<project>
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example</groupId>
-  <artifactId>chatserver</artifactId>
-  <version>1.0.0</version>
 
+  <!-- Базовые настройки проекта -->
+  <groupId>com.example</groupId>
+  <artifactId>semester</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>  <!-- Важно для родительского POM! -->
+
+  <name>Semester Project</name>
+  <description>Родительский POM для многомодульного проекта</description>
+
+  <!-- Список модулей -->
+  <modules>
+    <module>client</module>
+    <module>server</module>
+    <!-- Добавьте другие модули, если есть -->
+  </modules>
+
+  <!-- Общие свойства для всех модулей -->
   <properties>
-    <java.version>21</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>21</maven.compiler.source>
     <maven.compiler.target>21</maven.compiler.target>
+    <javafx.version>21.0.2</javafx.version>
   </properties>
 
-  <dependencies>
-    <!-- Ваши текущие зависимости -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>2.15.2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.xerial</groupId>
-      <artifactId>sqlite-jdbc</artifactId>
-      <version>3.42.0.0</version>
-    </dependency>
+  <!-- Общие зависимости (будут наследоваться всеми модулями) -->
+  <dependencyManagement>
+    <dependencies>
+      <!-- Пример: общая зависимость для логгирования -->
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>2.0.7</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-    <!-- Добавленные зависимости -->
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-crypto</artifactId>
-      <version>6.2.0</version>
-    </dependency>
-  </dependencies>
-
+  <!-- Общие плагины -->
   <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-      </plugin>
-    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.11.0</version>
+          <configuration>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.target}</target>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 </project>
